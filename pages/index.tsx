@@ -1,15 +1,28 @@
-import { NextPage } from 'next';
+export { default } from 'components/pages/main';
+import { MainPageProps } from 'components/pages/main/types';
+import prisma from 'lib/prisma';
+import { GetServerSideProps } from 'next';
+import serializeData from 'utils/serializeData';
 
-const Home: NextPage = () => (
-  <div
-    style={{
-      display: 'flex',
-      justifyContent: 'center',
-      alignItems: 'center',
-      height: '100%',
-    }}>
-    next-app-template
-  </div>
-);
+export const getServerSideProps: GetServerSideProps<MainPageProps> =
+  async () => {
+    try {
+      const events = await prisma.event.findMany();
+      const serializedEvents = serializeData(events);
 
-export default Home;
+      return {
+        props: {
+          events: serializedEvents,
+        },
+      };
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.log(error);
+
+      return {
+        props: {
+          events: [],
+        },
+      };
+    }
+  };
