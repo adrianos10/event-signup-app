@@ -1,5 +1,11 @@
 @import './tailwind.css';
 
 body {
-  @apply font-main;
+  @apply font-main bg-lightGray m-4;
+
+  height: calc(100vh - 2rem);
+}
+
+#__next {
+  height: calc(100vh - 2rem);
 }

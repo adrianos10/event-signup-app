@@ -1,0 +1,3 @@
+.box {
+  @apply shadow-xl p-6 bg-white transition-all w-full md:max-w-3xl md:px-28;
+}

@@ -1,0 +1,15 @@
+.heading-1 {
+  @apply text-4xl text-darkPurple mb-4;
+}
+
+.body-1 {
+  @apply text-lg;
+}
+
+.body-2 {
+  @apply text-base;
+}
+
+.button-text {
+  @apply text-base font-normal uppercase;
+}

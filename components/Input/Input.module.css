@@ -1,0 +1,21 @@
+.wrapper {
+  @apply relative mb-6;
+}
+
+.input {
+  transition: border-color 0.35s ease, padding 0.35s ease;
+
+  @apply p-2.5 border border-darkPurple outline-none w-full focus:border-purple;
+}
+
+.inputError {
+  @apply border-red;
+}
+
+.label {
+  @apply block mb-2 text-left;
+}
+
+.errorMessage {
+  @apply text-red;
+}

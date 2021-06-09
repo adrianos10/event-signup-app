@@ -1,0 +1,7 @@
+.btn {
+  @apply relative px-12 py-4 bg-purple text-white transition-colors focus:outline-none hover:bg-darkPurple;
+}
+
+/* .loader-icon {
+  @apply top-1/2 translate-y-1/2 absolute right-5;
+} */

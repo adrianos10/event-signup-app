@@ -1,0 +1,9 @@
+.wrapper {
+  @apply flex flex-col items-center justify-center text-center;
+
+  height: calc(100vh - 2rem);
+}
+
+.heading {
+  @apply mb-5;
+}

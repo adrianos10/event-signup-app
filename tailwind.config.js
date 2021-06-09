@@ -11,6 +11,7 @@ module.exports = {
       main: ['Open Sans', 'sans-serif'],
     },
     colors: {
+      red: '#a80739',
       purple: '#5331D5',
       darkPurple: '#150940',
       lightPurple: '#5C547A',
