@@ -35,7 +35,7 @@ function Form(): JSX.Element {
 
   return queryStatus.success ? (
     <SuccessMessage>
-      Thank you! You have signed up for out event!
+      Thank you! You have signed up for our event!
     </SuccessMessage>
   ) : (
     <FormContent onSubmit={onSubmit} loading={queryStatus.loading} />
