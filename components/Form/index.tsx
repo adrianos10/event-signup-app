@@ -1,9 +1,8 @@
 import axios from 'axios';
 import { CREATE_PARTICIPANT_ENDPOINT } from 'common/consts';
-import { ALREADY_EXISTS_STATUS_CODE } from 'pages/api/consts';
-import { CreateParticipantHandlerResponse } from 'pages/api/types';
 import { useCallback, useState } from 'react';
 import { SubmitHandler } from 'react-hook-form';
+import { toast } from 'react-toastify';
 
 import FormContent from './FormContent';
 import SuccessMessage from './SuccessMessage';
@@ -18,25 +17,26 @@ function Form(): JSX.Element {
     try {
       setQueryStatus({ loading: true });
 
-      const { data } = await axios.post<CreateParticipantHandlerResponse>(
-        CREATE_PARTICIPANT_ENDPOINT,
-        values
-      );
-
-      if (data?.statusCode === ALREADY_EXISTS_STATUS_CODE) {
-        setQueryStatus({ loading: false, data: data.participant });
-
-        return;
-      }
+      await axios.post(CREATE_PARTICIPANT_ENDPOINT, values);
 
       setQueryStatus({ loading: false, success: true });
     } catch (error) {
-      setQueryStatus({ loading: false, error });
+      const alreadySignedUpError = error.response.status === 409;
+
+      toast(
+        alreadySignedUpError
+          ? 'You have already signed up with this email address'
+          : error.message,
+        { type: 'error' }
+      );
+      setQueryStatus({ loading: false });
     }
   }, []);
 
   return queryStatus.success ? (
-    <SuccessMessage />
+    <SuccessMessage>
+      Thank you! You have signed up for out event!
+    </SuccessMessage>
   ) : (
     <FormContent onSubmit={onSubmit} loading={queryStatus.loading} />
   );

@@ -1,1 +1,0 @@
-export const ALREADY_EXISTS_STATUS_CODE = 123;

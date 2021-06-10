@@ -1,7 +1,4 @@
 import { SubmitHandler } from 'react-hook-form';
-
-import { Participant } from '.prisma/client';
-
 export enum FieldNames {
   Firstname = 'firstname',
   Lastname = 'lastname',
@@ -24,6 +21,4 @@ export interface FormContentProps {
 export interface QueryStatus {
   loading: boolean;
   success?: boolean;
-  error?: string;
-  data?: Participant;
 }
