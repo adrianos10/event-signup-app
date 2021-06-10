@@ -12,7 +12,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
     ref
   ): JSX.Element => {
     return (
-      <div>
+      <div className={styles.wrapper}>
         {label && (
           <label className={styles.label} htmlFor={id}>
             <Typography component="span" variant={Variant.Body2}>
@@ -20,7 +20,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
             </Typography>
           </label>
         )}
-        <div className={styles.wrapper}>
+        <div className={styles['input-wrapper']}>
           <input
             ref={ref}
             className={cs(styles.input, customClassName, {

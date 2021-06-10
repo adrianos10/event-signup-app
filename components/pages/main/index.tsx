@@ -8,20 +8,17 @@ import styles from './Main.module.css';
 import { MainPageProps } from './types';
 
 export default function Main(props: MainPageProps): JSX.Element {
-  // eslint-disable-next-line no-console
-  console.log(props.events); // FIXME
-
   return (
     <div className={styles.wrapper}>
       <div className={styles.heading}>
-        <Typography variant={Variant.Heading1}>
-          Signup for our event.
+        <Typography variant={Variant.Heading1}>Signup for our event</Typography>
+        <Typography>
+          Please fill in your personal data and select event date
         </Typography>
-        <Typography>You can choose only one.</Typography>
       </div>
       <Box>
         <FormProvider>
-          <Form />
+          <Form events={props.events} />
         </FormProvider>
       </Box>
     </div>
