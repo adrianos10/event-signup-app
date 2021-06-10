@@ -1,4 +1,4 @@
-// import LoaderIcon from 'components/LoaderIcon';
+import cs from 'classnames';
 import Typography from 'components/Typography';
 import { Variant as TypographyVariant } from 'components/Typography/types';
 import React from 'react';
@@ -9,16 +9,17 @@ import { ButtonProps } from './types';
 function Button({
   children,
   disabled,
-  loading = false,
+  loading = true,
   ...restProps
 }: ButtonProps): JSX.Element {
+  const isDisabled = disabled || loading;
+
   return (
     <button
-      className={styles.btn}
-      disabled={disabled || loading}
+      className={cs(styles.btn, { [styles.disabled]: isDisabled })}
+      disabled={isDisabled}
       {...restProps}>
       <Typography variant={TypographyVariant.Button}>{children}</Typography>
-      {/* {loading && <LoaderIcon className={styles['loader-icon']} />} */}
     </button>
   );
 }

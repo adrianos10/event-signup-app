@@ -1,61 +1,44 @@
-import { REQUIRED_FIELD_MESSAGE } from 'common/consts';
-import { EMAIL_REGEX } from 'common/consts';
-import Button from 'components/Button';
-import DatePicker from 'components/FormEventDatePicker';
-import FormInput from 'components/Input/FormInput';
-import { useFormContext } from 'react-hook-form';
+import axios from 'axios';
+import { CREATE_PARTICIPANT_ENDPOINT } from 'common/consts';
+import { ALREADY_EXISTS_STATUS_CODE } from 'pages/api/consts';
+import { CreateParticipantHandlerResponse } from 'pages/api/types';
+import { useCallback, useState } from 'react';
+import { SubmitHandler } from 'react-hook-form';
 
-import { FormProps } from './types';
+import FormContent from './FormContent';
+import SuccessMessage from './SuccessMessage';
+import { FormValues, QueryStatus } from './types';
 
-function Form({ events }: FormProps): JSX.Element {
-  const { handleSubmit } = useFormContext();
+function Form(): JSX.Element {
+  const [queryStatus, setQueryStatus] = useState<QueryStatus>({
+    loading: false,
+  });
 
-  return (
-    <form
-      onSubmit={handleSubmit((data) => {
-        // eslint-disable-next-line no-console
-        console.log(data); // FIXME
-      })}>
-      <FormInput
-        name="firstname"
-        label="Firstname"
-        placeholder="John"
-        isRequired
-        rules={{
-          required: REQUIRED_FIELD_MESSAGE,
-        }}
-      />
-      <FormInput
-        name="lastname"
-        label="Lastname"
-        placeholder="Doe"
-        isRequired
-        rules={{
-          required: REQUIRED_FIELD_MESSAGE,
-        }}
-      />
-      <FormInput
-        name="email"
-        label="Email address"
-        placeholder="john.doe@example.com"
-        rules={{
-          required: REQUIRED_FIELD_MESSAGE,
-          pattern: {
-            value: EMAIL_REGEX,
-            message: 'Please provide valid email address',
-          },
-        }}
-        isRequired
-      />
-      <div className="mb-6 overflow-auto">
-        <DatePicker
-          name="eventId"
-          events={events}
-          rules={{ required: 'Please select event date' }}
-        />
-      </div>
-      <Button type="submit">Signup</Button>
-    </form>
+  const onSubmit: SubmitHandler<FormValues> = useCallback(async (values) => {
+    try {
+      setQueryStatus({ loading: true });
+
+      const { data } = await axios.post<CreateParticipantHandlerResponse>(
+        CREATE_PARTICIPANT_ENDPOINT,
+        values
+      );
+
+      if (data?.statusCode === ALREADY_EXISTS_STATUS_CODE) {
+        setQueryStatus({ loading: false, data: data.participant });
+
+        return;
+      }
+
+      setQueryStatus({ loading: false, success: true });
+    } catch (error) {
+      setQueryStatus({ loading: false, error });
+    }
+  }, []);
+
+  return queryStatus.success ? (
+    <SuccessMessage />
+  ) : (
+    <FormContent onSubmit={onSubmit} loading={queryStatus.loading} />
   );
 }
 

@@ -2,6 +2,7 @@ import 'react-day-picker/lib/style.css';
 
 import Typography from 'components/Typography';
 import { Variant } from 'components/Typography/types';
+import { useEventsContext } from 'contexts/EventsContext';
 import { useCallback, useMemo, useState } from 'react';
 import DayPicker, { DateUtils, DayPickerProps } from 'react-day-picker';
 import { useController } from 'react-hook-form';
@@ -33,7 +34,6 @@ const modifiersStyles = {
 const customDayCellMatcher = () => true;
 
 function FormEventDatePicker({
-  events = [],
   dayPickerOptions,
   ...controllerOptions
 }: FormEventDatePickerProps): JSX.Element {
@@ -41,6 +41,7 @@ function FormEventDatePicker({
     field: { onChange },
     fieldState: { error },
   } = useController(controllerOptions);
+  const { events } = useEventsContext();
 
   const [hoveredDate, setHoveredDate] = useState<Date | undefined>(undefined);
   const [selectedDate, setSelectedDate] = useState<Date | undefined>(undefined);
