@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "eslint --fix --max-warnings=0 .",
     "format": "prettier --write './**/*.{js,jsx,ts,tsx,css,md,json}' --config ./.prettierrc",
-    "postinstall": "husky install"
+    "postinstall": "husky install",
+    "test": "jest"
   },
   "dependencies": {
     "@prisma/client": "^2.24.1",
@@ -24,6 +25,11 @@
     "safe-json-stringify": "^1.2.0"
   },
   "devDependencies": {
+    "@testing-library/dom": "^7.31.2",
+    "@testing-library/jest-dom": "^5.14.1",
+    "@testing-library/react": "^11.2.7",
+    "@testing-library/user-event": "^13.1.9",
+    "@types/jest": "^26.0.23",
     "@types/node": "^15.12.1",
     "@types/react": "^17.0.9",
     "@types/safe-json-stringify": "^1.1.2",
@@ -31,6 +37,7 @@
     "@typescript-eslint/eslint-plugin": "^4.26.0",
     "@typescript-eslint/parser": "^4.26.0",
     "autoprefixer": "^10.2.6",
+    "babel-jest": "^27.0.2",
     "eslint": "^7.28.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-jsx-a11y": "^6.4.1",
@@ -39,6 +46,8 @@
     "eslint-plugin-react-hooks": "^4.2.0",
     "eslint-plugin-simple-import-sort": "^7.0.0",
     "husky": "^6.0.0",
+    "identity-obj-proxy": "^3.0.0",
+    "jest": "^27.0.4",
     "lint-staged": "^11.0.0",
     "postcss": "^8.3.0",
     "prettier": "^2.3.1",
