@@ -1,8 +1,7 @@
 import { act, fireEvent, render } from '@testing-library/react';
+import FormContent from 'components/Form/FormContent';
+import { FormValues } from 'components/Form/types';
 import FormProvider from 'contexts/FormProvider';
-
-import FormContent from './FormContent';
-import { FormValues } from './types';
 
 describe('Form', () => {
   describe('with validation passed', () => {

@@ -1,5 +1,5 @@
 import { Participant } from '@prisma/client';
-import prisma from 'lib/prisma';
+import prisma from 'client';
 import { NextApiHandler } from 'next';
 
 const createParticipantHandler: NextApiHandler = async (req, res) => {

@@ -1,6 +1,6 @@
 export { default } from 'components/pages/main';
+import prisma from 'client';
 import { MainPageProps } from 'components/pages/main/types';
-import prisma from 'lib/prisma';
 import { GetServerSideProps } from 'next';
 import serializeData from 'utils/serializeData';
 
