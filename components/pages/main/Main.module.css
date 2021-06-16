@@ -7,3 +7,11 @@
 .heading {
   @apply mb-5;
 }
+
+.dark-header {
+  @apply text-purple;
+}
+
+.dark-text {
+  @apply text-white;
+}

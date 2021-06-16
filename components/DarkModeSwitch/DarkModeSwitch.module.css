@@ -1,0 +1,7 @@
+.label {
+  @apply flex justify-center items-center gap-2 mt-5;
+}
+
+.label-dark {
+  @apply text-white;
+}

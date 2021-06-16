@@ -9,7 +9,11 @@
 .input {
   transition: border-color 0.35s ease, padding 0.35s ease;
 
-  @apply p-2.5 border border-darkPurple outline-none w-full focus:border-purple;
+  @apply p-2.5 border border-darkPurple outline-none w-full focus:border-purple bg-lightGray;
+}
+
+.dark {
+  @apply bg-lightPurple text-white;
 }
 
 .inputError {
@@ -22,4 +26,8 @@
 
 .errorMessage {
   @apply absolute text-red;
+}
+
+.label-dark {
+  @apply text-white;
 }

@@ -1,35 +1,41 @@
 import 'react-day-picker/lib/style.css';
 
+import cs from 'classnames';
 import Typography from 'components/Typography';
 import { Variant } from 'components/Typography/types';
 import { useEventsContext } from 'contexts/EventsContext';
 import { useCallback, useMemo, useState } from 'react';
 import DayPicker, { DateUtils, DayPickerProps } from 'react-day-picker';
 import { useController } from 'react-hook-form';
+import useIsDarkMode from 'store/hooks/useIsDarkMode';
 import tailwindConfig from 'tailwind.config';
 import resolveConfig from 'tailwindcss/resolveConfig';
 import { CustomTailwindConfig } from 'types/tailwindConfig';
 
+import styles from './FormEventDatePicker.module.css';
 import { FormEventDatePickerProps } from './types';
 
 const resolvedTailwindConfig = resolveConfig(
   tailwindConfig
 ) as unknown as CustomTailwindConfig;
 
-const modifiersStyles = {
+const modifiersStyles = (isDarkMode: boolean) => ({
   selected: {
     backgroundColor: resolvedTailwindConfig.theme.colors.purple,
   },
   highlighted: {
-    backgroundColor: resolvedTailwindConfig.theme.colors.lightGray,
+    backgroundColor: isDarkMode
+      ? resolvedTailwindConfig.theme.colors.lightPurple
+      : resolvedTailwindConfig.theme.colors.lightGray,
   },
   disabled: {
+    ...(isDarkMode ? { color: 'gray' } : {}),
     pointerEvents: 'none',
   },
   customDayCell: {
     minWidth: 40,
   },
-};
+});
 
 const customDayCellMatcher = () => true;
 
@@ -42,6 +48,7 @@ function FormEventDatePicker({
     fieldState: { error },
   } = useController(controllerOptions);
   const { events } = useEventsContext();
+  const isDarkMode = useIsDarkMode();
 
   const [hoveredDate, setHoveredDate] = useState<Date | undefined>(undefined);
   const [selectedDate, setSelectedDate] = useState<Date | undefined>(undefined);
@@ -85,13 +92,14 @@ function FormEventDatePicker({
     <div>
       <DayPicker
         {...dayPickerOptions}
+        className={cs({ [styles.dark]: isDarkMode })}
         selectedDays={selectedDate}
         disabledDays={disabledDays}
         modifiers={{
           highlighted: hoveredDate,
           customDayCell: customDayCellMatcher,
         }}
-        modifiersStyles={modifiersStyles}
+        modifiersStyles={modifiersStyles(isDarkMode)}
         onDayClick={onDayClick}
         onDayMouseEnter={onDayMouseEnter}
         onDayMouseLeave={onDayMouseLeave}

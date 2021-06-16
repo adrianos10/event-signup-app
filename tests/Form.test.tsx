@@ -2,15 +2,21 @@ import { act, fireEvent, render } from '@testing-library/react';
 import FormContent from 'components/Form/FormContent';
 import { FormValues } from 'components/Form/types';
 import FormProvider from 'contexts/FormProvider';
+import { Provider } from 'react-redux';
+import { initializeStore, initialState } from 'store/store';
+
+const store = initializeStore(initialState);
 
 describe('Form', () => {
   describe('with validation passed', () => {
     it('calls onSubmit', async () => {
       const mockSubmit = jest.fn();
       const { getByPlaceholderText, getByText } = render(
-        <FormProvider<FormValues> options={{ defaultValues: { eventId: 1 } }}>
-          <FormContent onSubmit={mockSubmit} loading={false} />
-        </FormProvider>
+        <Provider store={store}>
+          <FormProvider<FormValues> options={{ defaultValues: { eventId: 1 } }}>
+            <FormContent onSubmit={mockSubmit} loading={false} />
+          </FormProvider>
+        </Provider>
       );
 
       await act(async () => {
@@ -36,9 +42,11 @@ describe('Form', () => {
   it("doesn't call onSubmit when validation is not passed and displays validation messages", async () => {
     const mockSubmit = jest.fn();
     const { getByText, getAllByText } = render(
-      <FormProvider>
-        <FormContent onSubmit={mockSubmit} loading={false} />
-      </FormProvider>
+      <Provider store={store}>
+        <FormProvider>
+          <FormContent onSubmit={mockSubmit} loading={false} />
+        </FormProvider>
+      </Provider>
     );
 
     await act(async () => {
@@ -55,9 +63,11 @@ describe('Form', () => {
 
   it('properly validates email field', async () => {
     const { getByPlaceholderText, getByText } = render(
-      <FormProvider>
-        <FormContent onSubmit={() => undefined} loading={false} />
-      </FormProvider>
+      <Provider store={store}>
+        <FormProvider>
+          <FormContent onSubmit={() => undefined} loading={false} />
+        </FormProvider>
+      </Provider>
     );
 
     await act(async () => {

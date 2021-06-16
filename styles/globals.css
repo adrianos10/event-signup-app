@@ -1,9 +1,13 @@
 @import './tailwind.css';
 
 body {
-  @apply font-main bg-lightGray m-4;
+  @apply font-main bg-lightGray p-4 transition-colors;
 
   height: calc(100vh - 2rem);
+}
+
+body.dark {
+  @apply bg-black;
 }
 
 #__next {
